@@ -17,10 +17,9 @@ const SearchInput: React.FC<SearchInputProps> = ({ user }) => {
       margin={{ base: "0 10px", md: "0 15px" }}
     >
       <InputGroup>
-        <InputLeftElement
-          pointerEvents="none"
-          children={<SearchIcon color="gray.300" mb={1} />}
-        />
+        <InputLeftElement pointerEvents="none">
+          <SearchIcon color="gray.300" mb={1} />
+        </InputLeftElement>
         <Input
           placeholder="Search Reddit"
           fontSize="10pt"
