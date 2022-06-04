@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import PageContent from "../components/layout/PageContent";
 
 const Home: NextPage = () => {
   return (
@@ -10,41 +11,23 @@ const Home: NextPage = () => {
         <link rel="icon" href="/images/redditFace.svg" />
       </Head>
 
-      <div>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-        <h1>Hello</h1>
-      </div>
+      <PageContent>
+        <>
+          <div>Left Content</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+          <div>Hello</div>
+        </>
+        <>
+          <div>Right Content</div>
+          <div>Hello</div>
+        </>
+      </PageContent>
     </div>
   );
 };

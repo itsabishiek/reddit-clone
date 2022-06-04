@@ -13,6 +13,7 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@fontsource/open-sans": "^4.5.10",
+    "@types/safe-json-stringify": "^1.1.2",
     "firebase": "^9.8.1",
     "framer-motion": "^6",
     "next": "12.1.6",
@@ -20,7 +21,8 @@
     "react-dom": "18.1.0",
     "react-firebase-hooks": "^5.0.3",
     "react-icons": "^4.3.1",
-    "recoil": "^0.7.3-alpha.2"
+    "recoil": "^0.7.3-alpha.2",
+    "safe-json-stringify": "^1.2.0"
   },
   "devDependencies": {
     "@types/node": "17.0.35",

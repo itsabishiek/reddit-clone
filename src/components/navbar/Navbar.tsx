@@ -1,4 +1,5 @@
 import { Flex, Image } from "@chakra-ui/react";
+import Link from "next/link";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/clientApp";
@@ -19,19 +20,21 @@ const Navbar: React.FC = () => {
       top="0"
       justifyContent={{ md: "space-between" }}
     >
-      <Flex
-        align="center"
-        width={{ base: "40px", md: "unset" }}
-        mr={{ base: 0, md: 2 }}
-        cursor="pointer"
-      >
-        <Image src="/images/redditFace.svg" height="30px" />
-        <Image
-          src="/images/redditText.svg"
-          height="46px"
-          display={{ base: "none", md: "unset" }}
-        />
-      </Flex>
+      <Link href="/">
+        <Flex
+          align="center"
+          width={{ base: "40px", md: "unset" }}
+          mr={{ base: 0, md: 2 }}
+          cursor="pointer"
+        >
+          <Image src="/images/redditFace.svg" height="30px" />
+          <Image
+            src="/images/redditText.svg"
+            height="46px"
+            display={{ base: "none", md: "unset" }}
+          />
+        </Flex>
+      </Link>
       {user && <Directory />}
       <SearchInput user={user} />
       <RightContent user={user} />
