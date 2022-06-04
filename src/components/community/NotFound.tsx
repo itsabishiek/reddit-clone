@@ -7,7 +7,7 @@ const NotFound: React.FC = () => {
     <Flex direction="column" align="center" justify="center" height="80vh">
       <Box width="100px" height="100px" bg="gray.400" borderRadius="50%" />
       <Text fontSize="18px" fontWeight={600} color="black" mt="32px" mb="20px">
-        Sorry, there aren't any communities on Reddit with that name.
+        Sorry, there aren&apos;t any communities on Reddit with that name.
       </Text>
       <Text fontSize="14px" color="gray.500" mb="32px">
         This community may have been banned or the community name is incorrect.
