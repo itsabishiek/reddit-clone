@@ -23,8 +23,8 @@ const NotFound: React.FC = () => {
         mt="32px"
       >
         Use of this site constitutes acceptance of our User Agreement and
-        Privacy Policy. ©2022 reddit inc. All rights reserved. REDDIT and the
-        ALIEN Logo are registered trademarks of reddit inc.
+        Privacy Policy. &copy; 2022 reddit inc. All rights reserved. REDDIT and
+        the ALIEN Logo are registered trademarks of reddit inc.
       </Text>
     </Flex>
   );
