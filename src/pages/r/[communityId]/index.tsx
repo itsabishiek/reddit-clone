@@ -8,6 +8,8 @@ import safeJsonStringify from "safe-json-stringify";
 import NotFound from "../../../components/community/NotFound";
 import Header from "../../../components/community/Header";
 import PageContent from "../../../components/layout/PageContent";
+import CreatePostLink from "../../../components/community/CreatePostLink";
+import Posts from "../../../components/post/Posts";
 
 type CommunityPageProps = {
   communityData: Community;
@@ -21,7 +23,7 @@ const CommunityPage: React.FC<CommunityPageProps> = ({ communityData }) => {
   return (
     <>
       <Head>
-        <title>Reddit - r/{communityData.id}</title>
+        <title>Reddit - {communityData.name}</title>
         <meta name="description" content="Dive into anything!" />
         <link rel="icon" href="/images/redditFace.svg" />
       </Head>
@@ -29,15 +31,8 @@ const CommunityPage: React.FC<CommunityPageProps> = ({ communityData }) => {
       <Header communityData={communityData} />
       <PageContent>
         <>
-          <div>Left Content</div>
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
-          <div>Hello</div>
+          <CreatePostLink />
+          <Posts communityData={communityData} />
         </>
         <>
           <div>Right Content</div>
@@ -69,7 +64,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       },
     };
   } catch (error) {
-    //   could add error page here
     console.log("getServerSideProps", error);
+    //   could add error page here
+    return {
+      redirect: {
+        destination: "/",
+        statusCode: 307,
+      },
+    };
   }
 }

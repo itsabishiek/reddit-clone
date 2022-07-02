@@ -19,6 +19,7 @@ const Navbar: React.FC = () => {
       position="sticky"
       top="0"
       justifyContent={{ md: "space-between" }}
+      zIndex={1000}
     >
       <Link href="/">
         <Flex
@@ -27,11 +28,12 @@ const Navbar: React.FC = () => {
           mr={{ base: 0, md: 2 }}
           cursor="pointer"
         >
-          <Image src="/images/redditFace.svg" height="30px" />
+          <Image src="/images/redditFace.svg" height="30px" alt="" />
           <Image
             src="/images/redditText.svg"
             height="46px"
             display={{ base: "none", md: "unset" }}
+            alt=""
           />
         </Flex>
       </Link>
