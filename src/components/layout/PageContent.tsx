@@ -14,7 +14,7 @@ const PageContent: React.FC<PageContentProps> = ({ children }) => {
         {/* Left Content */}
         <Flex
           direction="column"
-          w={{ base: "100%", md: "65%" }}
+          w={{ base: "100%", md: "67%" }}
           mr={{ base: 0, md: 6 }}
         >
           {" "}
@@ -23,6 +23,7 @@ const PageContent: React.FC<PageContentProps> = ({ children }) => {
         {/* Right Content */}
         <Box
           display={{ base: "none", md: "flex" }}
+          w={{ base: "100%", md: "33%" }}
           flexDirection="column"
           flexGrow={1}
         >

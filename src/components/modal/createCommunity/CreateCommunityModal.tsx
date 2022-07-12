@@ -40,6 +40,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
   const [user] = useAuthState(auth);
   const [communityId, setCommunityId] = useState("");
   const [communityName, setCommunityName] = useState("");
+  const [communityBio, setCommunityBio] = useState("");
   const [charsRemaining, setCharsRemaining] = useState(21);
   const [communityType, setCommunityType] = useState("public");
   const [error, setError] = useState("");
@@ -90,6 +91,7 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
         transaction.set(communityDocRef, {
           creatorId: user?.uid,
           name: communityName,
+          bio: communityBio,
           createdAt: serverTimestamp(),
           numberOfMembers: 1,
           privacyType: communityType,
@@ -129,9 +131,6 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
           <Box pl={3} pr={3}>
             <ModalCloseButton />
             <ModalBody display="flex" flexDirection="column" padding="10px 0">
-              <Text fontWeight={600} fontSize={15}>
-                Name
-              </Text>
               <Input
                 size="sm"
                 mt={2}
@@ -165,6 +164,15 @@ const CreateCommunityModal: React.FC<CreateCommunityModalProps> = ({
               >
                 {charsRemaining} Characters remaining
               </Text>
+
+              <Input
+                size="sm"
+                mt={4}
+                placeholder="Bio"
+                _placeholder={{ color: "gray.500" }}
+                value={communityBio}
+                onChange={(e) => setCommunityBio(e.target.value)}
+              />
 
               <Text fontSize="9pt" color="red">
                 {error}

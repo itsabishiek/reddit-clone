@@ -12,6 +12,8 @@ import {
   IoBookmarkOutline,
 } from "react-icons/io5";
 import {
+  Alert,
+  AlertIcon,
   Flex,
   Icon,
   Image,
@@ -20,6 +22,7 @@ import {
   MenuItem,
   MenuList,
   Skeleton,
+  Spinner,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -30,7 +33,7 @@ type PostItemProps = {
   userIsCreator: boolean;
   userVoteValue?: number;
   onVote: () => void;
-  onDeletePost: () => void;
+  onDeletePost: (post: Post) => Promise<boolean>;
   onSelectPost: () => void;
 };
 
@@ -43,6 +46,22 @@ const PostItem: React.FC<PostItemProps> = ({
   onVote,
 }) => {
   const [loadingImage, setLoadingImage] = useState(true);
+  const [loadingDelete, setLoadingDelete] = useState(false);
+  const [error, setError] = useState(false);
+
+  const handleDelete = async () => {
+    setLoadingDelete(true);
+    try {
+      const success = await onDeletePost(post);
+      if (!success) {
+        throw new Error("Failed to delete the post.");
+      }
+      console.log("Post was successfully deleted!");
+    } catch (error: any) {
+      setError(error);
+    }
+    setLoadingDelete(false);
+  };
 
   return (
     <Flex
@@ -85,6 +104,12 @@ const PostItem: React.FC<PostItemProps> = ({
         />
       </Flex>
       <Flex direction="column" width="100%">
+        {error && (
+          <Alert status="error">
+            <AlertIcon />
+            <Text fontSize="10pt">{error}</Text>
+          </Alert>
+        )}
         <Stack spacing={1} p="10pt">
           <Stack
             direction="row"
@@ -106,16 +131,27 @@ const PostItem: React.FC<PostItemProps> = ({
               >
                 <Icon as={BsThreeDots} fontSize={20} />
               </MenuButton>
-              <MenuList>
-                {userIsCreator && (
+              {userIsCreator && (
+                <MenuList>
                   <MenuItem _hover={{ bg: "gray.200" }}>
-                    <Flex align="center" onClick={onDeletePost}>
-                      <Icon as={AiOutlineDelete} fontSize={20} mr={2} />
-                      <Text fontWeight={600}>Delete Post</Text>
+                    <Flex align="center" onClick={handleDelete}>
+                      {loadingDelete ? (
+                        <Spinner size="sm" ml={3} />
+                      ) : (
+                        <>
+                          <Icon
+                            as={AiOutlineDelete}
+                            fontSize={20}
+                            mr={2}
+                            pb={1}
+                          />
+                          <Text fontWeight={600}>Delete Post</Text>
+                        </>
+                      )}
                     </Flex>
                   </MenuItem>
-                )}
-              </MenuList>
+                </MenuList>
+              )}
             </Menu>
           </Stack>
           <Text fontSize="12pt" fontWeight={600}>
