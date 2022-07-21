@@ -96,12 +96,14 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
         <Divider />
         <Flex fontSize="10pt" mt={2} align="center">
           <Icon as={IoCreateOutline} mr={2} fontSize={15} />
-          <Text>
-            Created{" "}
-            {moment(new Date(communityData.createdAt.seconds * 1000)).format(
-              "MMM DD, YYYY"
-            )}
-          </Text>
+          {communityData.createdAt && (
+            <Text>
+              Created{" "}
+              {moment(new Date(communityData.createdAt.seconds * 1000)).format(
+                "MMM DD, YYYY"
+              )}
+            </Text>
+          )}
         </Flex>
         <Flex fontSize="10pt" mt={2} align="center">
           <Icon as={BsTagsFill} mr={2} fontSize={15} />
