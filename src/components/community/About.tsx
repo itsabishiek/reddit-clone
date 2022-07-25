@@ -13,6 +13,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import moment from "moment";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { BsTagsFill } from "react-icons/bs";
@@ -20,6 +21,7 @@ import { FaReddit } from "react-icons/fa";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { IoCreateOutline } from "react-icons/io5";
 import { useSetRecoilState } from "recoil";
+import { authModalState } from "../../atoms/authModalAtom";
 import { Community, communityState } from "../../atoms/communitiesAtom";
 import { auth, firestore, storage } from "../../firebase/clientApp";
 import useSelectFile from "../../hooks/useSelectFile";
@@ -30,10 +32,12 @@ type AboutProps = {
 
 const About: React.FC<AboutProps> = ({ communityData }) => {
   const [user] = useAuthState(auth);
+  const router = useRouter();
   const selectedFileRef = useRef<HTMLInputElement>(null);
   const { onSelectFile, selectedFile, setSelectedFile } = useSelectFile();
   const [uploadingImage, setUploadingImage] = useState(false);
   const setCommunityStateValue = useSetRecoilState(communityState);
+  const setAuthModalState = useSetRecoilState(authModalState);
 
   const onUpdateImage = async () => {
     if (!selectedFile) return;
@@ -57,6 +61,19 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
       console.log("onUpdateImage Error", error.message);
     }
     setUploadingImage(false);
+  };
+
+  const onClick = () => {
+    if (!user) {
+      setAuthModalState({ open: true, view: "login" });
+      return;
+    }
+
+    const { communityId } = router.query;
+    if (communityId) {
+      router.push(`/r/${communityId}/submit`);
+      return;
+    }
   };
 
   return (
@@ -110,11 +127,10 @@ const About: React.FC<AboutProps> = ({ communityData }) => {
           <Text>r/{communityData.id} topics</Text>
         </Flex>
 
-        <Link href={`/r/${communityData.id}/submit`}>
-          <Button height="30px" mt={3} mb={3}>
-            Create Post
-          </Button>
-        </Link>
+        <Button height="30px" mt={3} mb={3} onClick={onClick}>
+          Create Post
+        </Button>
+
         {user?.uid === communityData.creatorId && (
           <>
             <Divider />

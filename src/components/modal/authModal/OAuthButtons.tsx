@@ -30,7 +30,12 @@ const OAuthButtons: React.FC = () => {
         isLoading={loading}
       >
         {" "}
-        <Image src="/images/googleLogo.png" height="20px" mr={4} alt="" />{" "}
+        <Image
+          src="https://banner2.cleanpng.com/20180521/ers/kisspng-google-logo-5b02bbe1d5c6e0.2384399715269058258756.jpg"
+          height="20px"
+          mr={4}
+          alt=""
+        />{" "}
         Continue with Google
       </Button>
       <Button variant="oauth">Some Other Providers</Button>
