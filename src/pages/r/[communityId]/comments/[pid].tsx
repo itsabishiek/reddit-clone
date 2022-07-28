@@ -39,7 +39,7 @@ const PostPage: React.FC = () => {
   return (
     <>
       <Head>
-        <title>Reddit</title>
+        <title>Reddit - {postStateValue.selectedPost?.title}</title>
         <meta name="description" content="Dive into anything!" />
         <link rel="icon" href="/images/redditFace.svg" />
       </Head>

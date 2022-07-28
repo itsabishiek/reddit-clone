@@ -1,5 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import PersonalHome from "../components/community/PersonalHome";
+import Premium from "../components/community/Premium";
+import Recommendations from "../components/community/Recommendations";
 import PageContent from "../components/layout/PageContent";
 
 const Home: NextPage = () => {
@@ -24,8 +27,9 @@ const Home: NextPage = () => {
           <div>Hello</div>
         </>
         <>
-          <div>Right Content</div>
-          <div>Hello</div>
+          <Recommendations />
+          <Premium />
+          <PersonalHome />
         </>
       </PageContent>
     </div>
