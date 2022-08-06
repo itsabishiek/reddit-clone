@@ -16,10 +16,12 @@ import { FaReddit } from "react-icons/fa";
 import { Community } from "../../atoms/communitiesAtom";
 import { firestore } from "../../firebase/clientApp";
 import useCommunityData from "../../hooks/useCommunityData";
+import AllCommunitiesModal from "../modal/AllCommunitiesModal";
 
 const Recommendations: React.FC = () => {
-  const [communities, setCommunities] = useState<Community[]>([]);
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [communities, setCommunities] = useState<Community[]>([]);
   const { communityStateValue, onJoinOrLeaveCommunity } = useCommunityData();
 
   const getCommunityRecommendations = async () => {
@@ -48,122 +50,130 @@ const Recommendations: React.FC = () => {
   }, []);
 
   return (
-    <Flex
-      direction="column"
-      bg="white"
-      borderRadius={4}
-      cursor="pointer"
-      border="1px solid"
-      borderColor="gray.300"
-      mb={2}
-    >
+    <>
+      <AllCommunitiesModal open={open} handleClose={() => setOpen(false)} />
       <Flex
-        align="flex-end"
-        color="white"
-        p="6px 10px"
-        bg="blue.500"
-        height="70px"
-        borderRadius="4px 4px 0px 0px"
-        fontWeight={600}
-        bgImage="url(/images/recCommsArt.png)"
-        backgroundSize="cover"
-        bgGradient="linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75)),
-        url('images/recCommsArt.png')"
+        direction="column"
+        bg="white"
+        borderRadius={4}
+        cursor="pointer"
+        border="1px solid"
+        borderColor="gray.300"
+        mb={2}
       >
-        Top Communities
-      </Flex>
-      <Flex direction="column">
-        {loading ? (
-          <Stack mt={2} p={3}>
-            <Flex justify="space-between" align="center">
-              <SkeletonCircle size="10" />
-              <Skeleton height="10px" width="70%" />
-            </Flex>
-            <Flex justify="space-between" align="center">
-              <SkeletonCircle size="10" />
-              <Skeleton height="10px" width="70%" />
-            </Flex>
-            <Flex justify="space-between" align="center">
-              <SkeletonCircle size="10" />
-              <Skeleton height="10px" width="70%" />
-            </Flex>
-          </Stack>
-        ) : (
-          <>
-            {communities.map((community, index) => {
-              const isJoined = !!communityStateValue.mySnippets.find(
-                (snippet) => snippet.communityId === community.id
-              );
+        <Flex
+          align="flex-end"
+          color="white"
+          p="6px 10px"
+          bg="blue.500"
+          height="70px"
+          borderRadius="4px 4px 0px 0px"
+          fontWeight={600}
+          bgImage="url(/images/recCommsArt.png)"
+          backgroundSize="cover"
+          bgGradient="linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75)),
+        url('images/recCommsArt.png')"
+        >
+          Top Communities
+        </Flex>
+        <Flex direction="column">
+          {loading ? (
+            <Stack mt={2} p={3}>
+              <Flex justify="space-between" align="center">
+                <SkeletonCircle size="10" />
+                <Skeleton height="10px" width="70%" />
+              </Flex>
+              <Flex justify="space-between" align="center">
+                <SkeletonCircle size="10" />
+                <Skeleton height="10px" width="70%" />
+              </Flex>
+              <Flex justify="space-between" align="center">
+                <SkeletonCircle size="10" />
+                <Skeleton height="10px" width="70%" />
+              </Flex>
+            </Stack>
+          ) : (
+            <>
+              {communities.map((community, index) => {
+                const isJoined = !!communityStateValue.mySnippets.find(
+                  (snippet) => snippet.communityId === community.id
+                );
 
-              return (
-                <Link key={community.id} href={`/r/${community.id}`}>
-                  <Flex
-                    position="relative"
-                    align="center"
-                    fontSize="10pt"
-                    borderBottom="1px solid"
-                    borderColor="gray.200"
-                    p="10px 12px"
-                    fontWeight={600}
-                  >
-                    <Flex width="100%" align="center">
-                      <Flex width="15%">
-                        <Text>{index + 1}</Text>
+                return (
+                  <Link key={community.id} href={`/r/${community.id}`}>
+                    <Flex
+                      position="relative"
+                      align="center"
+                      fontSize="10pt"
+                      borderBottom="1px solid"
+                      borderColor="gray.200"
+                      p="10px 12px"
+                      fontWeight={600}
+                    >
+                      <Flex width="100%" align="center">
+                        <Flex width="15%">
+                          <Text>{index + 1}</Text>
+                        </Flex>
+                        <Flex align="center" width="80%">
+                          {community.imageURL ? (
+                            <Image
+                              borderRadius="full"
+                              boxSize="28px"
+                              src={community.imageURL}
+                              mr={2}
+                              alt=""
+                            />
+                          ) : (
+                            <Icon
+                              as={FaReddit}
+                              fontSize={30}
+                              color="brand.100"
+                              mr={2}
+                            />
+                          )}
+                          <span
+                            style={{
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                            }}
+                          >{`r/${community.id}`}</span>
+                        </Flex>
                       </Flex>
-                      <Flex align="center" width="80%">
-                        {community.imageURL ? (
-                          <Image
-                            borderRadius="full"
-                            boxSize="28px"
-                            src={community.imageURL}
-                            mr={2}
-                            alt=""
-                          />
-                        ) : (
-                          <Icon
-                            as={FaReddit}
-                            fontSize={30}
-                            color="brand.100"
-                            mr={2}
-                          />
-                        )}
-                        <span
-                          style={{
-                            whiteSpace: "nowrap",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
+
+                      <Box>
+                        <Button
+                          height="22px"
+                          width="60px"
+                          fontSize="8pt"
+                          variant={isJoined ? "outline" : "solid"}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onJoinOrLeaveCommunity(community, isJoined);
                           }}
-                        >{`r/${community.id}`}</span>
-                      </Flex>
+                        >
+                          {isJoined ? "Joined" : "Join"}
+                        </Button>
+                      </Box>
                     </Flex>
+                  </Link>
+                );
+              })}
 
-                    <Box>
-                      <Button
-                        height="22px"
-                        fontSize="8pt"
-                        variant={isJoined ? "outline" : "solid"}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onJoinOrLeaveCommunity(community, isJoined);
-                        }}
-                      >
-                        {isJoined ? "Joined" : "Join"}
-                      </Button>
-                    </Box>
-                  </Flex>
-                </Link>
-              );
-            })}
-
-            <Box p="10px 20px">
-              <Button height="30px" width="100%">
-                View All
-              </Button>
-            </Box>
-          </>
-        )}
+              <Box p="10px 20px">
+                <Button
+                  height="30px"
+                  width="100%"
+                  onClick={() => setOpen(true)}
+                >
+                  View All
+                </Button>
+              </Box>
+            </>
+          )}
+        </Flex>
       </Flex>
-    </Flex>
+    </>
   );
 };
 export default Recommendations;

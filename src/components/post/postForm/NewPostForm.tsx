@@ -46,9 +46,13 @@ export type TabItem = {
 
 type NewPostFormProps = {
   user: User;
+  communityImageURL?: string;
 };
 
-const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
+const NewPostForm: React.FC<NewPostFormProps> = ({
+  user,
+  communityImageURL,
+}) => {
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState(formTabs[0].title);
   const [textInputs, setTextInputs] = useState({
@@ -69,6 +73,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
       // store the post in db
       const postDocRef = await addDoc(collection(firestore, "posts"), {
         communityId: communityId as string,
+        communityImageURL: communityImageURL || "",
         creatorId: user?.uid,
         creatorDisplayName: user.displayName || user.email!.split("@")[0],
         title: textInputs.title,

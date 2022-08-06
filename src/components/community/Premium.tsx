@@ -13,6 +13,8 @@ const Premium: React.FC = () => {
       border="1px solid"
       borderColor="gray.300"
       mb={2}
+      top="60px"
+      position="sticky"
     >
       <Flex>
         <Icon as={GiCheckedShield} fontSize={26} color="brand.100" mt={2} />
